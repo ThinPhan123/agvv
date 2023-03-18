@@ -1,0 +1,138 @@
+<?xml version="1.0" ?>
+<robot name="agv" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find agv_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find agv_description)/urdf/agv.trans" />
+<xacro:include filename="$(find agv_description)/urdf/agv.gazebo" />
+<link name="base_link">
+  <inertial>
+    <origin xyz="0.0015749721113432686 8.873602091093253e-08 0.13438701314465032" rpy="0 0 0"/>
+    <mass value="71.6563570563554"/>
+    <inertia ixx="0.595019" iyy="0.421933" izz="0.650382" ixy="0.0" iyz="-1e-06" ixz="-0.000138"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="lidar_1">
+  <inertial>
+    <origin xyz="0.0 0.0 0.010999999999999954" rpy="0 0 0"/>
+    <mass value="0.6646274878118223"/>
+    <inertia ixx="0.00023" iyy="0.00023" izz="0.000407" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.05 -0.0 -0.2475" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.05 -0.0 -0.2475" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/lidar_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="right__1">
+  <inertial>
+    <origin xyz="-1.264266469291897e-14 0.00949999999999998 -6.938893903907228e-18" rpy="0 0 0"/>
+    <mass value="0.48321131129175837"/>
+    <inertia ixx="0.000145" iyy="0.000261" izz="0.000145" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.06 0.1525 -0.0325" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/right__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.06 0.1525 -0.0325" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/right__1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="left_1">
+  <inertial>
+    <origin xyz="1.2732870313669764e-14 -0.00949999999999998 -6.938893903907228e-18" rpy="0 0 0"/>
+    <mass value="0.48321131129175837"/>
+    <inertia ixx="0.000145" iyy="0.000261" izz="0.000145" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.06 -0.1525 -0.0325" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.06 -0.1525 -0.0325" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/left_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="imu_1">
+  <inertial>
+    <origin xyz="1.3877787807814457e-17 3.40168431617327e-18 0.007499999999999979" rpy="0 0 0"/>
+    <mass value="0.10597499999999999"/>
+    <inertia ixx="1e-05" iyy="1e-05" izz="1.6e-05" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.05 -9e-05 -0.2275" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/imu_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin xyz="0.05 -9e-05 -0.2275" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://agv_description/meshes/imu_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rigid 1" type="fixed">
+  <origin xyz="0.05 0.0 0.2475" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_1"/>
+</joint>
+
+<joint name="Revolute 2" type="continuous">
+  <origin xyz="0.06 -0.1525 0.0325" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="right__1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+</joint>
+
+<joint name="Revolute 3" type="continuous">
+  <origin xyz="0.06 0.1525 0.0325" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="left_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+</joint>
+
+<joint name="Rigid 4" type="fixed">
+  <origin xyz="-0.05 9e-05 0.2275" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="imu_1"/>
+</joint>
+
+</robot>
